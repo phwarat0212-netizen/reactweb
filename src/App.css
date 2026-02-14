@@ -23,7 +23,6 @@ html, body {
 h1 {
   font-size: 3rem;
   background: linear-gradient(90deg, #00ffff, #ff00ff, #00ff88);
-  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 8px rgba(0,255,255,0.5);
 }
