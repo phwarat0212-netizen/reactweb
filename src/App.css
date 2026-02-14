@@ -1,117 +1,79 @@
-/* 🌌 DARK NEON GLOW THEME */
-
-body {
-  margin: 0;
-  padding: 0;
-  background: radial-gradient(circle at center, #0a0a12, #000000);
-  color: #ffffff; /* ขาวชัดบนพื้นมืด */
-  font-family: "Segoe UI", Arial, sans-serif;
-}
-
-/* จัดกลางจอ */
 .container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   text-align: center;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #111 0%, #000 70%);
+  color: #fff;
+  padding: 20px;
 }
 
-/* Scoreboard */
+/* หัวข้อ */
+h1 {
+  font-size: 3rem;
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+}
+
+/* scoreboard */
 .scoreboard {
   display: flex;
   justify-content: center;
-  gap: 40px;
-  margin-bottom: 15px;
+  gap: 30px;
+  margin-bottom: 10px;
   font-weight: bold;
-  font-size: 18px;
-  text-shadow: 0 0 10px #00ff88;
+  font-size: 1.2rem;
 }
 
-/* กระดาน */
+/* board */
 .board {
   display: grid;
   width: 90vw;
-  max-width: 420px;
+  max-width: 400px;
   aspect-ratio: 1;
-  margin: 20px 0;
-  border-radius: 14px;
-  overflow: hidden;
-  background: #0f0f1f;
-  box-shadow:
-    0 0 20px #00ff88,
-    0 0 60px rgba(0, 255, 136, 0.4);
-}
-
-/* ช่อง */
-.cell {
-  background: #141428;
-  border: 1px solid #0a0a15;
-}
-
-/* งู */
-.snake {
-  background: linear-gradient(145deg, #00ff88, #00cc66);
-  box-shadow: 0 0 12px #00ff88;
-  border-radius: 4px;
-}
-
-/* หัวงู */
-.snake.head {
-  background: linear-gradient(145deg, #00ffaa, #00dd77);
-  box-shadow: 0 0 20px #00ffaa;
-}
-
-/* อาหาร */
-.food {
-  background: radial-gradient(circle, #ff3c3c, #990000);
-  border-radius: 50%;
-  box-shadow: 0 0 18px red;
-  animation: pulse 0.8s infinite alternate;
-}
-
-@keyframes pulse {
-  from {
-    transform: scale(0.9);
-    box-shadow: 0 0 10px red;
-  }
-  to {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px red;
-  }
-}
-
-/* ปุ่ม */
-button {
+  margin: 20px auto;
   background: #111;
-  color: #00ff88;
-  border: 1px solid #00ff88;
-  padding: 10px 18px;
-  margin: 6px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.25s;
-  font-size: 16px;
+  border: 3px solid #00ffcc;
+  box-shadow: 0 0 20px #00ffcc;
 }
 
-button:hover {
-  background: #00ff88;
-  color: #000;
-  box-shadow: 0 0 15px #00ff88;
-  transform: scale(1.05);
+/* cell */
+.cell {
+  background: #1a1a1a;
+  border: 1px solid #222;
 }
 
-button:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+/* snake */
+.snake {
+  background: #00ff00;
+  box-shadow: 0 0 10px #00ff00;
 }
 
+/* food */
+.food {
+  background: red;
+  box-shadow: 0 0 10px red;
+}
+
+/* controls */
 .controls {
   margin-top: 15px;
 }
 
-.controls button {
-  font-size: 22px;
-  padding: 12px 18px;
+/* buttons */
+button {
+  font-size: 18px;
+  margin: 5px;
+  padding: 10px 15px;
+  background: #111;
+  color: #00ffcc;
+  border: 2px solid #00ffcc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00ffcc;
+  color: #000;
+  box-shadow: 0 0 15px #00ffcc;
 }
