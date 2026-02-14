@@ -12,11 +12,9 @@ function App() {
   const [isPaused, setIsPaused] = useState(false);
   const [score, setScore] = useState(0);
   const [speed, setSpeed] = useState(200);
-  const [highScore, setHighScore] = useState(
-    Number(localStorage.getItem("highScore")) || 0
-  );
+  const [highScore, setHighScore] =
+    useState(Number(localStorage.getItem("highScore")) || 0);
 
-  // Keyboard Control
   useEffect(() => {
     const handleKey = (e) => {
       if (!isRunning) return;
@@ -32,7 +30,6 @@ function App() {
     return () => window.removeEventListener("keydown", handleKey);
   }, [isRunning, direction]);
 
-  // Game Loop
   useEffect(() => {
     if (!isRunning || gameOver || isPaused) return;
 
@@ -44,15 +41,10 @@ function App() {
   }, [isRunning, direction, gameOver, isPaused, snake]);
 
   const changeDirection = (newDir) => {
-    if (!isRunning) return;
-
-    // Prevent reverse
     if (
       direction[0] + newDir[0] === 0 &&
       direction[1] + newDir[1] === 0
-    ) {
-      return;
-    }
+    ) return;
 
     setDirection(newDir);
   };
@@ -65,29 +57,21 @@ function App() {
         newSnake[0][1] + direction[1],
       ];
 
-      // Wall collision
       if (
         head[0] < 0 ||
         head[0] >= boardSize ||
         head[1] < 0 ||
-        head[1] >= boardSize
+        head[1] >= boardSize ||
+        newSnake.some(([r, c]) => r === head[0] && c === head[1])
       ) {
-        endGame();
-        return prev;
-      }
-
-      // Self collision
-      if (newSnake.some(([r, c]) => r === head[0] && c === head[1])) {
         endGame();
         return prev;
       }
 
       newSnake.unshift(head);
 
-      // Eat food
       if (head[0] === food[0] && head[1] === food[1]) {
         setScore((prev) => prev + 10);
-
         setFood([
           Math.floor(Math.random() * boardSize),
           Math.floor(Math.random() * boardSize),
@@ -146,7 +130,6 @@ function App() {
         </button>
       )}
 
-      {/* Difficulty */}
       {!isRunning && (
         <div style={{ marginTop: 10 }}>
           <button onClick={() => setSpeed(220)}>Easy</button>
@@ -155,7 +138,6 @@ function App() {
         </div>
       )}
 
-      {/* Board */}
       <div
         className="board"
         style={{
@@ -185,7 +167,6 @@ function App() {
         )}
       </div>
 
-      {/* Mobile Controls */}
       <div className="controls">
         <button disabled={!isRunning} onClick={() => changeDirection([-1, 0])}>⬆️</button>
         <div>

@@ -1,3 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background: #000000;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+/* container */
 .container {
   text-align: center;
   font-family: Arial, sans-serif;
@@ -7,14 +20,13 @@
   padding: 20px;
 }
 
-/* หัวข้อ */
+/* title */
 h1 {
   font-size: 3rem;
   color: #00ffcc;
   text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
 }
 
-/* scoreboard */
 .scoreboard {
   display: flex;
   justify-content: center;
@@ -24,7 +36,6 @@ h1 {
   font-size: 1.2rem;
 }
 
-/* board */
 .board {
   display: grid;
   width: 90vw;
@@ -36,30 +47,25 @@ h1 {
   box-shadow: 0 0 20px #00ffcc;
 }
 
-/* cell */
 .cell {
   background: #1a1a1a;
   border: 1px solid #222;
 }
 
-/* snake */
 .snake {
   background: #00ff00;
   box-shadow: 0 0 10px #00ff00;
 }
 
-/* food */
 .food {
   background: red;
   box-shadow: 0 0 10px red;
 }
 
-/* controls */
 .controls {
   margin-top: 15px;
 }
 
-/* buttons */
 button {
   font-size: 18px;
   margin: 5px;
