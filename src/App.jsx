@@ -9,8 +9,14 @@ function App() {
   const [direction, setDirection] = useState([0, 1]);
   const [gameOver, setGameOver] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [score, setScore] = useState(0);
+  const [speed, setSpeed] = useState(200);
+  const [highScore, setHighScore] = useState(
+    Number(localStorage.getItem("highScore")) || 0
+  );
 
-  // คีย์บอร์ด (คอม)
+  // Keyboard Control
   useEffect(() => {
     const handleKey = (e) => {
       if (!isRunning) return;
@@ -19,24 +25,35 @@ function App() {
       if (e.key === "ArrowDown") changeDirection([1, 0]);
       if (e.key === "ArrowLeft") changeDirection([0, -1]);
       if (e.key === "ArrowRight") changeDirection([0, 1]);
+      if (e.key === " ") setIsPaused((prev) => !prev);
     };
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [isRunning]);
+  }, [isRunning, direction]);
 
-  // game loop
+  // Game Loop
   useEffect(() => {
-    if (!isRunning || gameOver) return;
+    if (!isRunning || gameOver || isPaused) return;
 
     const interval = setInterval(() => {
       moveSnake();
-    }, 200);
+    }, Math.max(speed - snake.length * 3, 70));
 
     return () => clearInterval(interval);
-  }, [isRunning, direction, gameOver]);
+  }, [isRunning, direction, gameOver, isPaused, snake]);
 
   const changeDirection = (newDir) => {
+    if (!isRunning) return;
+
+    // Prevent reverse
+    if (
+      direction[0] + newDir[0] === 0 &&
+      direction[1] + newDir[1] === 0
+    ) {
+      return;
+    }
+
     setDirection(newDir);
   };
 
@@ -48,22 +65,29 @@ function App() {
         newSnake[0][1] + direction[1],
       ];
 
-      // ชนขอบ
+      // Wall collision
       if (
         head[0] < 0 ||
         head[0] >= boardSize ||
         head[1] < 0 ||
         head[1] >= boardSize
       ) {
-        setGameOver(true);
-        setIsRunning(false);
+        endGame();
+        return prev;
+      }
+
+      // Self collision
+      if (newSnake.some(([r, c]) => r === head[0] && c === head[1])) {
+        endGame();
         return prev;
       }
 
       newSnake.unshift(head);
 
-      // กินอาหาร
+      // Eat food
       if (head[0] === food[0] && head[1] === food[1]) {
+        setScore((prev) => prev + 10);
+
         setFood([
           Math.floor(Math.random() * boardSize),
           Math.floor(Math.random() * boardSize),
@@ -76,17 +100,34 @@ function App() {
     });
   };
 
+  const endGame = () => {
+    setGameOver(true);
+    setIsRunning(false);
+
+    if (score > highScore) {
+      localStorage.setItem("highScore", score);
+      setHighScore(score);
+    }
+  };
+
   const startGame = () => {
     setSnake([[10, 10]]);
     setFood([5, 5]);
     setDirection([0, 1]);
     setGameOver(false);
+    setIsPaused(false);
+    setScore(0);
     setIsRunning(true);
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Snake Game 🐍</h1>
+    <div className="container">
+      <h1>🐍 Snake Game V2</h1>
+
+      <div className="scoreboard">
+        <span>Score: {score}</span>
+        <span>High Score: {highScore}</span>
+      </div>
 
       {!isRunning && !gameOver && (
         <button onClick={startGame}>Start Game</button>
@@ -99,13 +140,26 @@ function App() {
         </>
       )}
 
-      {/* กระดาน */}
+      {isRunning && (
+        <button onClick={() => setIsPaused(!isPaused)}>
+          {isPaused ? "Resume" : "Pause"}
+        </button>
+      )}
+
+      {/* Difficulty */}
+      {!isRunning && (
+        <div style={{ marginTop: 10 }}>
+          <button onClick={() => setSpeed(220)}>Easy</button>
+          <button onClick={() => setSpeed(160)}>Medium</button>
+          <button onClick={() => setSpeed(100)}>Hard</button>
+        </div>
+      )}
+
+      {/* Board */}
       <div
+        className="board"
         style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${boardSize}, 18px)`,
-          width: "fit-content",
-          margin: "20px auto",
+          gridTemplateColumns: `repeat(${boardSize}, 1fr)`,
         }}
       >
         {[...Array(boardSize)].map((_, row) =>
@@ -118,33 +172,30 @@ function App() {
             return (
               <div
                 key={`${row}-${col}`}
-                style={{
-                  width: 18,
-                  height: 18,
-                  backgroundColor: isSnake
-                    ? "green"
+                className={
+                  isSnake
+                    ? "snake"
                     : isFood
-                    ? "red"
-                    : "#eee",
-                  border: "1px solid #ccc",
-                }}
+                    ? "food"
+                    : "cell"
+                }
               />
             );
           })
         )}
       </div>
 
-      {/* ปุ่มมือถือ */}
-      <div style={{ marginTop: 20 }}>
-        <button onClick={() => changeDirection([-1, 0])}>⬆️</button>
+      {/* Mobile Controls */}
+      <div className="controls">
+        <button disabled={!isRunning} onClick={() => changeDirection([-1, 0])}>⬆️</button>
         <div>
-          <button onClick={() => changeDirection([0, -1])}>⬅️</button>
-          <button onClick={() => changeDirection([0, 1])}>➡️</button>
+          <button disabled={!isRunning} onClick={() => changeDirection([0, -1])}>⬅️</button>
+          <button disabled={!isRunning} onClick={() => changeDirection([0, 1])}>➡️</button>
         </div>
-        <button onClick={() => changeDirection([1, 0])}>⬇️</button>
+        <button disabled={!isRunning} onClick={() => changeDirection([1, 0])}>⬇️</button>
       </div>
 
-      <p>Use Arrow Keys or Touch Buttons</p>
+      <p>Arrow Keys | Space = Pause</p>
     </div>
   );
 }
