@@ -1,14 +1,14 @@
-/* 🌌 Dark Neon Theme */
+/* 🌌 DARK NEON GLOW THEME */
 
 body {
   margin: 0;
   padding: 0;
-  background: radial-gradient(circle at center, #0f0f1a, #05050a);
-  color: white;
+  background: radial-gradient(circle at center, #0a0a12, #000000);
+  color: #ffffff; /* ขาวชัดบนพื้นมืด */
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-/* จัดกลาง */
+/* จัดกลางจอ */
 .container {
   min-height: 100vh;
   display: flex;
@@ -18,7 +18,7 @@ body {
   text-align: center;
 }
 
-/* Score */
+/* Scoreboard */
 .scoreboard {
   display: flex;
   justify-content: center;
@@ -26,7 +26,7 @@ body {
   margin-bottom: 15px;
   font-weight: bold;
   font-size: 18px;
-  text-shadow: 0 0 8px #00ff88;
+  text-shadow: 0 0 10px #00ff88;
 }
 
 /* กระดาน */
@@ -36,49 +36,49 @@ body {
   max-width: 420px;
   aspect-ratio: 1;
   margin: 20px 0;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
-  background: #111;
+  background: #0f0f1f;
   box-shadow:
-    0 0 15px #00ff88,
-    0 0 40px rgba(0, 255, 136, 0.4);
+    0 0 20px #00ff88,
+    0 0 60px rgba(0, 255, 136, 0.4);
 }
 
-/* ช่องว่าง */
+/* ช่อง */
 .cell {
-  background: #1a1a2e;
-  border: 1px solid #0f0f1f;
+  background: #141428;
+  border: 1px solid #0a0a15;
 }
 
 /* งู */
 .snake {
   background: linear-gradient(145deg, #00ff88, #00cc66);
-  box-shadow: 0 0 10px #00ff88;
+  box-shadow: 0 0 12px #00ff88;
   border-radius: 4px;
 }
 
 /* หัวงู */
 .snake.head {
   background: linear-gradient(145deg, #00ffaa, #00dd77);
-  box-shadow: 0 0 18px #00ffaa;
+  box-shadow: 0 0 20px #00ffaa;
 }
 
 /* อาหาร */
 .food {
   background: radial-gradient(circle, #ff3c3c, #990000);
   border-radius: 50%;
-  box-shadow: 0 0 15px red;
+  box-shadow: 0 0 18px red;
   animation: pulse 0.8s infinite alternate;
 }
 
 @keyframes pulse {
   from {
     transform: scale(0.9);
-    box-shadow: 0 0 8px red;
+    box-shadow: 0 0 10px red;
   }
   to {
     transform: scale(1.1);
-    box-shadow: 0 0 20px red;
+    box-shadow: 0 0 25px red;
   }
 }
 
@@ -97,7 +97,7 @@ button {
 
 button:hover {
   background: #00ff88;
-  color: black;
+  color: #000;
   box-shadow: 0 0 15px #00ff88;
   transform: scale(1.05);
 }
