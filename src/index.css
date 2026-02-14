@@ -1,18 +1,4 @@
-/* 🔥 RESET DEFAULT VITE STYLE */
-
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color: #ffffff;
-  background-color: #000000; /* บังคับมืดตลอด */
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* FORCE DARK MODE */
 
 * {
   margin: 0;
@@ -20,16 +6,19 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
+html, body {
+  background: #000000 !important;
+  color: #ffffff !important;
   min-height: 100vh;
-  background: #000000; /* ล็อกพื้นหลังดำ */
-  color: #ffffff;
 }
 
-a {
-  color: #00ff88;
-  text-decoration: none;
+:root {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+
+body {
+  display: block !important; /* เอา flex ของ vite ออก */
 }
 
 button {
