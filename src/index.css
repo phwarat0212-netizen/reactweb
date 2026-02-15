@@ -1,26 +1,11 @@
-/* FORCE DARK MODE */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  background: #000000 !important;
-  color: #ffffff !important;
-  min-height: 100vh;
-}
-
-:root {
-  background: #000000 !important;
-  color: #ffffff !important;
-}
-
-body {
-  display: block !important; /* เอา flex ของ vite ออก */
-}
-
-button {
-  font-family: inherit;
+@layer base {
+  body {
+    margin: 0;
+    @apply bg-primaryBg;
+    @apply text-primaryContent;
+  }
 }
